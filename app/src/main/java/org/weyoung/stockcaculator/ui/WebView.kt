@@ -11,6 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.gson.Gson
 import org.weyoung.stockcaculator.data.model.StockData
+import org.weyoung.stockcaculator.data.remote.homePageUrl
+import org.weyoung.stockcaculator.data.remote.loadMoreUrl
 import org.weyoung.stockcaculator.data.remote.webPageUrl
 
 
@@ -32,8 +34,7 @@ fun HiddenWebpage(url: String, token: (String) -> Unit, result: (StockData) -> U
                     override fun result(content: String) {
                         content.takeIf { it != "undefined" }?.let {
                             val stockData = Gson().fromJson(content, StockData::class.java)
-                            token(stockData.token)
-                            result(stockData)
+                            stockData.token?.let(token) ?: result(stockData)
                         }
                     }
                 }, "hack")
@@ -43,9 +44,13 @@ fun HiddenWebpage(url: String, token: (String) -> Unit, result: (StockData) -> U
                         request: WebResourceRequest?
                     ) = false
 
-                    override fun onPageFinished(view: WebView?, url: String?) {
+                    override fun onPageFinished(view: WebView, url: String) {
                         super.onPageFinished(view, url)
-                        loadUrl("javascript:hack.result(JSON.stringify(allResult))");
+                        if (url.startsWith(loadMoreUrl)) {
+                            loadUrl("javascript:hack.result(document.getElementsByTagName('pre')[0].innerText)")
+                        } else if (url.startsWith(homePageUrl)) {
+                            loadUrl("javascript:hack.result(JSON.stringify(allResult))")
+                        }
                     }
                 }
                 loadUrl(url)

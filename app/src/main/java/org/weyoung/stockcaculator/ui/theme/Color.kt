@@ -2,7 +2,11 @@ package org.weyoung.stockcaculator.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Red = Color(0xFFd50000)
+val LightRed = Color(0xFFff5131)
+val Grey = Color(0xFFcfd8dc)
+
+
+val DarkGrey = Color(0xFF455a64)
+val LightGrey = Color(0xFF718792)
+val Black = Color(0xFF212121)
