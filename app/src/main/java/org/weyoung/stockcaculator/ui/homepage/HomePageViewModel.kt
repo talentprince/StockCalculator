@@ -1,4 +1,4 @@
-package org.weyoung.stockcaculator
+package org.weyoung.stockcaculator.ui.homepage
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ data class StockState(
 data class Stock(val name: String, val code: String, val price: String, val limit: String)
 
 @HiltViewModel
-class StockViewModel @Inject constructor() : ViewModel() {
+class HomePageViewModel @Inject constructor() : ViewModel() {
     private val _stockState = MutableStateFlow(StockState())
     val stockFlow = _stockState.asStateFlow()
 
