@@ -19,16 +19,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import org.weyoung.stockcaculator.database.StockItem
 import org.weyoung.stockcaculator.ui.HiddenWebpage
 import org.weyoung.stockcaculator.ui.theme.StockCaculatorTheme
 
 @Composable
 fun HomePage() {
     Surface(color = MaterialTheme.colors.background) {
-        val viewModel: HomePageViewModel = viewModel()
+        val viewModel: HomePageViewModel = hiltViewModel()
         val stockState = viewModel.stockFlow.collectAsState()
         Column(
             modifier = Modifier.background(
@@ -55,18 +56,18 @@ fun HomePage() {
 }
 
 @Composable
-fun StockList(stockList: List<Stock>, modifier: Modifier = Modifier) {
+fun StockList(stockList: List<StockItem>, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
-        items(stockList) { stockData ->
-            StockLine(modifier = modifier, stockData = stockData)
+        items(stockList) { stockItem ->
+            StockLine(modifier = modifier, stockItem = stockItem)
         }
     }
 }
 
 @Composable
-fun StockLine(stockData: Stock, modifier: Modifier = Modifier) {
+fun StockLine(stockItem: StockItem, modifier: Modifier = Modifier) {
     Card(modifier = modifier.padding(2.dp)) {
-        val numberColor = if (stockData.limit.toFloat() < 0) Color.Green else Color.Red
+        val numberColor = if (stockItem.limit.toFloat() < 0) Color.Green else Color.Red
         Row(
             modifier = modifier
                 .padding(start = 4.dp, end = 4.dp, top = 8.dp, bottom = 8.dp),
@@ -76,16 +77,21 @@ fun StockLine(stockData: Stock, modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = modifier.weight(1f)
             ) {
-                Text(text = stockData.name, fontSize = 24.sp)
-                Text(text = stockData.code, fontSize = 14.sp, color = Color.Gray)
+                Text(text = stockItem.name, fontSize = 24.sp)
+                Text(text = stockItem.code, fontSize = 14.sp, color = Color.Gray)
             }
             Text(
-                text = stockData.price, fontSize = 22.sp, color = numberColor, modifier = modifier
+                text = stockItem.price, fontSize = 22.sp, color = numberColor, modifier = modifier
                     .padding(start = 16.dp)
                     .weight(1f)
             )
             Text(
-                text = stockData.limit, fontSize = 24.sp, color = numberColor, modifier = modifier
+                text = stockItem.limit, fontSize = 24.sp, color = numberColor, modifier = modifier
+                    .padding(start = 16.dp)
+                    .weight(1f)
+            )
+            Text(
+                text = stockItem.bidding, fontSize = 24.sp, color = numberColor, modifier = modifier
                     .padding(start = 16.dp)
                     .weight(1f)
             )
@@ -98,6 +104,6 @@ fun StockLine(stockData: Stock, modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     StockCaculatorTheme {
-        StockList(stockList = listOf(Stock("Apple", "10001", "999", "10")))
+        StockList(stockList = listOf(StockItem("Apple", "10001", "999", "10", "10", "2021-11-02")))
     }
 }

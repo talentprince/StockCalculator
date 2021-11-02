@@ -3,6 +3,7 @@ buildscript {
     ext {
         compose_version = '1.0.4'
         ktor_version = '1.6.4'
+        room_version = '2.3.0'
     }
     repositories {
         google()
