@@ -2,11 +2,8 @@ package org.weyoung.stockcaculator.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Red = Color(0xFFd50000)
-val LightRed = Color(0xFFff5131)
-val Grey = Color(0xFFcfd8dc)
-
-
-val DarkGrey = Color(0xFF455a64)
-val LightGrey = Color(0xFF718792)
-val Black = Color(0xFF212121)
+val Red200 = Color(0xfff297a2)
+val Red300 = Color(0xffea6d7e)
+val Red700 = Color(0xffdd0d3c)
+val Red800 = Color(0xffd00036)
+val Red900 = Color(0xffc20029)

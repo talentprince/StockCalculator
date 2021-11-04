@@ -3,8 +3,10 @@ package org.weyoung.stockcaculator.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import javax.annotation.concurrent.Immutable
 
-@Entity(tableName = "stock_db")
+@Immutable
+@Entity(tableName = "stock_table")
 data class StockItem(
     @PrimaryKey val code: String,
     @ColumnInfo(name = "name") val name: String,

@@ -14,4 +14,8 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideStockDao(@ApplicationContext context: Context): StockDao = StockDatabase.getInstance(context).stockDao()
+
+    @Provides
+    @Singleton
+    fun provideFavoriteDao(@ApplicationContext context: Context): FavoriteDao = StockDatabase.getInstance(context).favoriteDao()
 }

@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [StockItem::class], version = 1)
+@Database(entities = [StockItem::class, FavoriteItem::class], version = 1)
 abstract class StockDatabase : RoomDatabase() {
     abstract fun stockDao(): StockDao
+    abstract fun favoriteDao(): FavoriteDao
 
     companion object {
         private var INSTANCE: StockDatabase? = null
