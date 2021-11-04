@@ -1,5 +1,6 @@
 package org.weyoung.stockcaculator.ui.homepage
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,10 +42,20 @@ fun HomePage(modifier: Modifier = Modifier, openDetail: (String) -> Unit) {
                 )
             }
         }
-    }) {
+    }) { innerPadding ->
         NavHost(navController = navController, startDestination = Screen.List.route) {
-            composable(Screen.List.route) { StockView(openDetail = openDetail) }
-            composable(Screen.Favorite.route) { FavoriteView(openDetail = openDetail) }
+            composable(Screen.List.route) {
+                StockView(
+                    modifier = modifier.padding(innerPadding),
+                    openDetail = openDetail
+                )
+            }
+            composable(Screen.Favorite.route) {
+                FavoriteView(
+                    modifier = modifier.padding(innerPadding),
+                    openDetail = openDetail
+                )
+            }
         }
     }
 }

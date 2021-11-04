@@ -22,10 +22,10 @@ import org.weyoung.stockcaculator.database.FavoriteItem
 import org.weyoung.stockcaculator.ui.theme.StockCaculatorTheme
 
 @Composable
-fun FavoriteView(openDetail: (String) -> Unit) {
+fun FavoriteView(modifier: Modifier = Modifier, openDetail: (String) -> Unit) {
     Surface(color = MaterialTheme.colors.background) {
         Column(
-            modifier = Modifier.background(
+            modifier = modifier.background(
                 color = MaterialTheme.colors.onPrimary.copy(
                     alpha = 0.3f
                 )
