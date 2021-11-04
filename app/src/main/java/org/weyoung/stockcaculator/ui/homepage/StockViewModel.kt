@@ -23,7 +23,7 @@ data class StockState(
 )
 
 @HiltViewModel
-class HomePageViewModel @Inject constructor(
+class StockViewModel @Inject constructor(
     private val stockDao: StockDao,
     private val favoriteDao: FavoriteDao
 ) :
