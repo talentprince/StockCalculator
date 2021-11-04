@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.weyoung.stockcaculator.ui.bottombar.Screen
+import org.weyoung.stockcaculator.ui.detailpage.DetailPage
 import org.weyoung.stockcaculator.ui.homepage.HomePage
 import org.weyoung.stockcaculator.ui.theme.StockCaculatorTheme
 
@@ -17,13 +18,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StockCaculatorTheme {
-                val navigationController = rememberNavController()
+                val navController = rememberNavController()
                 NavHost(
-                    navController = navigationController,
+                    navController = navController,
                     startDestination = Screen.Home.route
                 ) {
-                    composable(Screen.Home.route) { HomePage() }
-                    composable(Screen.Detail.route) {}
+                    composable(Screen.Home.route) {
+                        HomePage(openDetail = {
+                            navController.navigate(Screen.Detail.route)
+                        })
+                    }
+                    composable(Screen.Detail.route) { DetailPage() }
                 }
             }
         }

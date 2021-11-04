@@ -3,6 +3,7 @@ package org.weyoung.stockcaculator.ui.homepage
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -13,7 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import org.weyoung.stockcaculator.ui.bottombar.Screen
 
 @Composable
-fun HomePage() {
+fun HomePage(modifier: Modifier = Modifier, openDetail: (String) -> Unit) {
     val navController = rememberNavController()
     val items = listOf(
         Screen.List,
@@ -42,8 +43,8 @@ fun HomePage() {
         }
     }) {
         NavHost(navController = navController, startDestination = Screen.List.route) {
-            composable(Screen.List.route) { StockView() }
-            composable(Screen.Favorite.route) { FavoriteView() }
+            composable(Screen.List.route) { StockView(openDetail = openDetail) }
+            composable(Screen.Favorite.route) { FavoriteView(openDetail = openDetail) }
         }
     }
 }

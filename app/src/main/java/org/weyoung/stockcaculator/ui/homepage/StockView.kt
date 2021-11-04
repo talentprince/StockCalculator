@@ -3,6 +3,7 @@ package org.weyoung.stockcaculator.ui.homepage
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,22 +20,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import org.weyoung.stockcaculator.database.StockItem
 import org.weyoung.stockcaculator.ui.HiddenWebpage
+import org.weyoung.stockcaculator.ui.bottombar.Screen
 import org.weyoung.stockcaculator.ui.theme.StockCaculatorTheme
 import kotlin.math.roundToInt
 
 @Composable
-fun StockView() {
+fun StockView(modifier: Modifier = Modifier, openDetail: (String) -> Unit) {
     Surface(color = MaterialTheme.colors.background) {
         val viewModel: StockViewModel = hiltViewModel()
         val stockState = viewModel.stockFlow.collectAsState()
         val revealedState = viewModel.revealedFlow.collectAsState()
         val favoriteState = viewModel.favoriteFlow.collectAsState(emptyList())
         Column(
-            modifier = Modifier.background(
+            modifier = modifier.background(
                 color = MaterialTheme.colors.onPrimary.copy(alpha = 0.3f)
             )
         ) {
@@ -53,7 +56,8 @@ fun StockView() {
                     onCollapsed = viewModel::onCollapsed,
                     isRevealed = revealedState.value::contains,
                     isFavorite = favoriteState.value::contains,
-                    onFavoriteClick = viewModel::favorite
+                    onFavoriteClick = viewModel::favorite,
+                    openDetail = openDetail
                 )
             }
         }
@@ -68,7 +72,8 @@ private fun StockList(
     isFavorite: (String) -> Boolean,
     onExpanded: (String) -> Unit,
     onCollapsed: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit
+    onFavoriteClick: (String) -> Unit,
+    openDetail: (String) -> Unit
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(stockList) { stockItem ->
@@ -76,6 +81,7 @@ private fun StockList(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(75.dp)
+                    .clickable { openDetail(stockItem.code) }
             ) {
                 Row(
                     modifier = modifier.fillMaxHeight(),
@@ -130,6 +136,7 @@ private fun StockLine(
         transitionSpec = { tween(durationMillis = 500) },
         targetValueByState = { if (isRevealed) 8.dp else 2.dp }
     )
+    val navController = rememberNavController()
 
     Card(modifier = modifier
         .padding(vertical = 2.dp, horizontal = 2.dp)
@@ -190,14 +197,16 @@ private fun StockLine(
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun StockListPreview() {
     StockCaculatorTheme {
         StockList(
             stockList = listOf(StockItem("Apple", "10001", "999", "10", "10", "2021-11-02")),
+            isRevealed = { true },
+            isFavorite = { true },
             onExpanded = {},
             onCollapsed = {},
-            isRevealed = { true },
             onFavoriteClick = {},
-            isFavorite = { true })
+            openDetail = {}
+        )
     }
 }
