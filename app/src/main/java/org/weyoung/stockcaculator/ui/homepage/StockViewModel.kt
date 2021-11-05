@@ -58,14 +58,12 @@ class StockViewModel @Inject constructor(
         stockState = stockState.copy(url = wholePageUrl(token = token))
     }
 
-    fun favorite(code: String) {
+    fun favorite(item: FavoriteItem) {
         viewModelScope.launch {
-            if (favoriteDao.getById(code) != null) {
-                favoriteDao.delete(code)
+            if (favoriteDao.getByCode(item.code) != null) {
+                favoriteDao.delete(item.code)
             } else {
-                stockDao.getById(code)?.name?.let {
-                    favoriteDao.insert(FavoriteItem(code, it))
-                }
+                favoriteDao.insert(item)
             }
         }
     }

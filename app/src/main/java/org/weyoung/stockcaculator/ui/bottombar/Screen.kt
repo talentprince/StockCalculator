@@ -16,5 +16,7 @@ sealed class Screen(
     object Home : Screen("home", R.string.home)
     object List : Screen("list", R.string.list, Icons.Filled.List)
     object Favorite : Screen("favorite", R.string.favorite, Icons.Filled.Favorite)
-    object Detail : Screen("detail", R.string.detail)
+    object Detail : Screen("detail/{code}", R.string.detail) {
+        fun withCode(code: String) = route.replace("{code}", code)
+    }
 }

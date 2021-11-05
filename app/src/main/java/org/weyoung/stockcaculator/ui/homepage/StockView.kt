@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import org.weyoung.stockcaculator.database.FavoriteItem
 import org.weyoung.stockcaculator.database.StockItem
 import org.weyoung.stockcaculator.ui.HiddenWebpage
 import org.weyoung.stockcaculator.ui.bottombar.Screen
@@ -72,7 +73,7 @@ private fun StockList(
     isFavorite: (String) -> Boolean,
     onExpanded: (String) -> Unit,
     onCollapsed: (String) -> Unit,
-    onFavoriteClick: (String) -> Unit,
+    onFavoriteClick: (FavoriteItem) -> Unit,
     openDetail: (String) -> Unit
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
@@ -91,10 +92,8 @@ private fun StockList(
                         if (isFavorite(stockItem.code)) MaterialTheme.colors.primary else MaterialTheme.colors.onBackground
                     IconButton(
                         onClick = {
-                            stockItem.code.run {
-                                onFavoriteClick(this)
-                                onCollapsed(this)
-                            }
+                            onFavoriteClick(FavoriteItem(stockItem.code, stockItem.name))
+                            onCollapsed(stockItem.code)
                         }) {
                         Icon(Icons.Filled.Favorite, contentDescription = null, tint = starColor)
                     }
