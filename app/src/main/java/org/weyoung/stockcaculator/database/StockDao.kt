@@ -9,7 +9,7 @@ interface StockDao {
     fun getByCode(code: String): Flow<List<StockItem>>
 
     @Query("SELECT * from stock_table where code = :code limit 1")
-    fun first(code: String): StockItem?
+    suspend fun first(code: String): StockItem?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: StockItem)

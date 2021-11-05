@@ -6,6 +6,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightThemeColors = lightColors(
     primary = Red700,
@@ -40,7 +41,10 @@ fun StockCaculatorTheme(
         LightThemeColors
     }
 
-    MaterialTheme(
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(color = colors.primary)
+
+    return MaterialTheme(
         colors = colors,
         typography = Typography,
         shapes = Shapes,

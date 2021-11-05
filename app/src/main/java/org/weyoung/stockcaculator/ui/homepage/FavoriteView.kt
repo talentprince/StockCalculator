@@ -57,7 +57,8 @@ private fun FavoriteLine(
         modifier = modifier
             .clickable { openDetail(favoriteItem.code) }
             .padding(vertical = 2.dp, horizontal = 2.dp)
-            .height(75.dp)
+            .height(75.dp),
+        elevation = 2.dp
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
