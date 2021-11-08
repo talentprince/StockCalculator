@@ -160,14 +160,14 @@ private fun StockLine(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = modifier.weight(1f)
             ) {
-                Text(text = stockItem.name, style = MaterialTheme.typography.h5)
+                Text(text = stockItem.name, style = MaterialTheme.typography.h6)
                 CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     Text(text = stockItem.code, style = MaterialTheme.typography.subtitle1)
                 }
             }
             Text(
                 text = stockItem.price,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.h6,
                 color = numberColor,
                 modifier = modifier
                     .padding(start = 16.dp)
@@ -175,7 +175,7 @@ private fun StockLine(
             )
             Text(
                 text = stockItem.limit,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.h6,
                 color = numberColor,
                 modifier = modifier
                     .padding(start = 16.dp)
@@ -183,7 +183,7 @@ private fun StockLine(
             )
             Text(
                 text = stockItem.bidding,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.h6,
                 color = numberColor,
                 modifier = modifier
                     .padding(start = 16.dp)
