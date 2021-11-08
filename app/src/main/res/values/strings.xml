@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StockCaculator</string>
+    <string name="app_name">Stockcalculator</string>
     <string name="home">主页</string>
     <string name="favorite">收藏</string>
     <string name="detail">详情</string>

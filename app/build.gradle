@@ -9,7 +9,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "org.weyoung.stockcaculator"
+        applicationId "org.weyoung.stockcalculator"
         minSdk 26
         targetSdk 30
         versionCode 1
