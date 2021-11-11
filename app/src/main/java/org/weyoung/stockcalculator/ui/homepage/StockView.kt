@@ -27,6 +27,7 @@ import org.weyoung.stockcalculator.database.FavoriteItem
 import org.weyoung.stockcalculator.database.StockItem
 import org.weyoung.stockcalculator.ui.HiddenWebpage
 import org.weyoung.stockcalculator.ui.theme.StockCalculatorTheme
+import java.lang.Exception
 import kotlin.math.roundToInt
 
 @Composable
@@ -149,7 +150,11 @@ private fun StockLine(
             }
         }, elevation = cardElevation
     ) {
-        val numberColor = if (stockItem.limit.toFloat() < 0) Color.Green else Color.Red
+        val numberColor = try {
+            if (stockItem.limit.toFloat() < 0) Color.Green else Color.Red
+        } catch (e: Exception) {
+            Color.Red
+        }
         Row(
             modifier = modifier
                 .padding(start = 4.dp, end = 4.dp, top = 8.dp, bottom = 8.dp),

@@ -78,7 +78,7 @@ class StockViewModel @Inject constructor(
                         it[1] as String,
                         it[2] as String,
                         it[3] as String,
-                        (it[8] as Double).toString(),
+                        (it[8] as? Double).toString(),
                         SimpleDateFormat("yyyyMMdd", Locale.CHINA).format(Date())
                     ).also { item ->
                         stockDao.insert(item)
